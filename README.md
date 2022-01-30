@@ -8,7 +8,16 @@ http://www.peak-system.com/forum/viewtopic.php?f=34&t=1112
 
 See announcement at http://www.peak-system.com/forum/viewtopic.php?f=34&t=1818
 
-This programm is currently tested with the PCAN Router (pro) and PCAN Router DR. Other PCAN hardware may follow soon. Stay tuned :-)
+Scripts and documentation to build PCAN Router firmware with Linux can be found here: https://github.com/peak-system/pcanrouter
+
+This programm is currently tested with the following PCAN hardware:
+
+- PCAN Router
+- PCAN Router DR
+- PCAN Router Pro
+- PCAN Router FD
+- PCAN Router Pro FD
+- PCAN MicroMod Analog2
 
 # REMARK
 
