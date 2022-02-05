@@ -107,5 +107,16 @@ const fblock_t flashid42[] = {
 	{0x800000, 0x800000, false}
 };
 
+const fblock_t flashid43[] = {
+	{0x00000, 0x8000, true},
+	{0x08000, 0x8000, true},
+	{0x10000, 0x8000, false},
+	{0x18000, 0x8000, false},
+	{0x20000, 0x8000, false},
+	{0x28000, 0x8000, false},
+	{0x30000, 0x8000, false},
+	{0x38000, 0x8000, false}
+};
+
 const fblock_t unknownflashid[] = {
 };

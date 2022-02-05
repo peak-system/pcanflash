@@ -124,9 +124,9 @@ const hw_t hwt43 = {"PCAN-MiniDiag FD", "PCAN-MiniDiag-FD",
 		   0, /* CRC start */
 		   0, /* flash offset */
 		   256, /* max blocksize */
-		   UNKNOWN_FLASH_ID, /* Flash ID type */
-		   FLASH_BLOCK_ENTRIES(unknownflashid),
-		   unknownflashid};
+		   43, /* Flash ID type */
+		   FLASH_BLOCK_ENTRIES(flashid43),
+		   flashid43};
 
 const hw_t hwt44 = {"PCAN-MicroMod FD", "PCAN-MicroMod-FD",
 		   (FDATA_INVERT),

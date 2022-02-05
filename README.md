@@ -18,6 +18,7 @@ This programm is currently tested with the following PCAN hardware:
 - PCAN Router FD
 - PCAN Router Pro FD
 - PCAN MicroMod Analog2
+- PCAN-MiniDiag FD
 
 # REMARK
 
