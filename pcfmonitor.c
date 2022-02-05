@@ -99,6 +99,14 @@ void print_cmd(struct can_frame cf, int color)
 		printf("Verify");
 		break;
 
+	case CAN2FLASH_START_FLASH_HI:
+		printf("Start Flash High 0x%02X%02X%02X", cf.data[4], cf.data[5], cf.data[6]);
+		break;
+
+	case CAN2FLASH_START_FLASH_LO:
+		printf("Start Flash Low 0x%02X%02X%02X", cf.data[4], cf.data[5], cf.data[6]);
+		break;
+
 	case CAN2FLASH_SWITCH_TO_BOOTLOADER:
 		if (cf.data[4] == 0x55)
 			printf("SwitchToBootloader");
