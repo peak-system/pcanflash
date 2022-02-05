@@ -56,7 +56,7 @@ void print_usage(char *prg)
 	fprintf(stderr, "Options: -f <file.bin>  (binary file to flash)\n");
 	fprintf(stderr, "         -i <module_id> (skip question when discovering multiple ids)\n");
 	fprintf(stderr, "         -q             (just query modules and quit)\n");
-	fprintf(stderr, "         -r             (reset module after flashing)\n");
+	fprintf(stderr, "         -r             (reset module after flashing/query)\n");
 	fprintf(stderr, "         -d             (dry run - skip erase/write commands)\n");
 	fprintf(stderr, "\n");
 }
@@ -187,7 +187,10 @@ int main(int argc, char **argv)
 
 	if (query) {
 		printf("\n");
-		return 0;
+
+		/* provide reset option after query */
+		if (!do_reset)
+			return 0;
 	}
 
 	if (module_id == NO_MODULE_ID) {
@@ -210,6 +213,10 @@ int main(int argc, char **argv)
 		fprintf(stderr, "\nmodule id not found in module list!\n\n");
 		exit(1);
 	}
+
+	/* at this point we can properly address a module to perform a reset */
+	if (query && do_reset)
+		goto out_reset;
 
 	/* restore hw_type of this module_id index from data[7] */
 	hw_type = modules[module_id].data[7];
@@ -310,6 +317,7 @@ int main(int argc, char **argv)
 		printf("done\n");
 	}
 
+out_reset:
 	if (has_hw_flags(hw_type, RESET_AFTER_FLASH) || do_reset) {
 		printf("\nreset module ... ");
 		fflush(stdout);
@@ -331,7 +339,9 @@ int main(int argc, char **argv)
 	printf("\ndone.\n\n");
 
 	close(s);
-	fclose(infile);
+
+	if (infile)
+		fclose(infile);
 
 	return 0;
 }
