@@ -140,14 +140,14 @@ const hw_t hwt43 = {"PCAN-MiniDiag FD", "PCAN-MiniDiag-FD",
 		   flashid44};
 
 const hw_t hwt44 = {"PCAN-MicroMod FD", "PCAN-MicroMod-FD",
-		   (FDATA_INVERT),
+		   (FDATA_INVERT | SWITCH_TO_BOOTLOADER | DATA_MODE8 | END_PROGRAMMING),
 		   0, /* CRC start */
 		   0, /* flash offset */
-		   0, /* file skip */
+		   0x8000, /* file skip */
 		   256, /* max blocksize */
-		   UNKNOWN_FLASH_ID, /* Flash ID type */
-		   FLASH_BLOCK_ENTRIES(unknownflashid),
-		   unknownflashid};
+		   44, /* Flash ID type */
+		   FLASH_BLOCK_ENTRIES(flashid44),
+		   flashid44};
 
 /* index table for fast hw_type referencing */
 
