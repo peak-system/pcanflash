@@ -65,6 +65,16 @@ uint32_t get_flash_offset(uint8_t hw_type)
 	return 0; /* disabled */
 }
 
+uint32_t get_file_skip(uint8_t hw_type)
+{
+	const hw_t *hwt = get_hw(hw_type);
+
+	if (hwt)
+		return hwt->file_skip;
+
+	return 0; /* default */
+}
+
 uint32_t get_max_blocksize(uint8_t hw_type)
 {
 	const hw_t *hwt = get_hw(hw_type);

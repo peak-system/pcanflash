@@ -271,7 +271,7 @@ int main(int argc, char **argv)
 		erase_flashblocks(s, dry_run, infile, module_id, hw_type, i);
 
 	printf("\nwriting flash blocks:\n");
-	foffset = 0;
+	foffset = get_file_skip(hw_type);
 	alternating_xor_flip = has_hw_flags(hw_type, FDATA_INVERT);
 	crc_start = get_crc_startpos(hw_type);
 	floffset = get_flash_offset(hw_type);
