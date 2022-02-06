@@ -125,6 +125,10 @@ void print_cmd(struct can_frame cf, int color)
 		printf("EndProgramming");
 		break;
 
+	case CAN2FLASH_GET_JSON_DESCRIPTOR:
+		printf("GetJSONDescriptor");
+		break;
+
 	default:
 		printf("(unknown command) 0x%02X", cf.data[3]);
 		break;
