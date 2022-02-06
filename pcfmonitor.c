@@ -119,6 +119,11 @@ void print_cmd(struct can_frame cf, int color)
 			printf("ResetModule");
 		else
 			printf("ResetModule (unknown)");
+
+		if (cf.data[2] == 0xFF)
+			printf(" (all modules)");
+		else
+			printf(" (single module)");
 		break;
 
 	case CAN2FLASH_END:

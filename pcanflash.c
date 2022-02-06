@@ -57,6 +57,7 @@ void print_usage(char *prg)
 	fprintf(stderr, "         -i <module_id> (skip question when discovering multiple ids)\n");
 	fprintf(stderr, "         -q             (just query modules and quit)\n");
 	fprintf(stderr, "         -r             (reset module after flashing/query)\n");
+	fprintf(stderr, "         -R             (reset all modules after flashing/query)\n");
 	fprintf(stderr, "         -d             (dry run - skip erase/write commands)\n");
 	fprintf(stderr, "\n");
 }
@@ -72,6 +73,7 @@ int main(int argc, char **argv)
 	static FILE *infile;
 	static int query;
 	static int do_reset;
+	static int do_reset_all;
 	static int dry_run;
 	int module_id = NO_MODULE_ID;
 	int alternating_xor_flip;
@@ -83,7 +85,7 @@ int main(int argc, char **argv)
 	long foffset;
 	int entries;
 
-	while ((opt = getopt(argc, argv, "f:i:qrd?")) != -1) {
+	while ((opt = getopt(argc, argv, "f:i:qRrd?")) != -1) {
 		switch (opt) {
 		case 'f':
 			infile = fopen(optarg, "r");
@@ -109,6 +111,9 @@ int main(int argc, char **argv)
 			query = 1;
 			break;
 
+		case 'R':
+			do_reset_all = 1;
+			/* fallthrough */
 		case 'r':
 			do_reset = 1;
 			break;
@@ -191,6 +196,10 @@ int main(int argc, char **argv)
 		/* provide reset option after query */
 		if (!do_reset)
 			return 0;
+
+		/* no module identification needed to perform a reset */
+		if (do_reset_all)
+			goto out_reset;
 	}
 
 	if (module_id == NO_MODULE_ID) {
@@ -319,9 +328,17 @@ int main(int argc, char **argv)
 
 out_reset:
 	if (has_hw_flags(hw_type, RESET_AFTER_FLASH) || do_reset) {
-		printf("\nreset module ... ");
-		fflush(stdout);
-		reset_module(s, module_id);
+
+		if (do_reset_all) {
+			printf("\nreset all modules ... ");
+			fflush(stdout);
+			reset_module(s, 0xFF); /* module_id for all modules */
+		} else {
+			printf("\nreset module id %d ... ", module_id);
+			fflush(stdout);
+			reset_module(s, module_id);
+		}
+
 		sleep(1);
 
 		/* a reset which is issued by a command line option
