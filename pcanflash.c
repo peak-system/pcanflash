@@ -274,7 +274,7 @@ int main(int argc, char **argv)
 	if (!(entries)) {
 		fprintf(stderr, "no flashblocks found for hardware type %d (%s)!\n",
 			hw_type, get_hw_name(hw_type));
-		exit(1);
+		goto out_leave_bootloader;
 	}
 	for (i = 0; i < entries; i++)
 		erase_flashblocks(s, dry_run, infile, module_id, hw_type, i);
@@ -317,6 +317,7 @@ int main(int argc, char **argv)
 
 	} /* while (1) */
 
+out_leave_bootloader:
 	if (has_hw_flags(hw_type, END_PROGRAMMING)) { /* recent hw modules */
 		printf("\nend programming ... ");
 		fflush(stdout);
