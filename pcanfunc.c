@@ -114,11 +114,12 @@ int query_modules(int s, struct can_frame *modules)
 
 void init_set_cmd(struct can_frame *frame)
 {
+	memset(frame, 0, sizeof(struct can_frame));
+
 	frame->can_id = CAN_ID;
 	frame->can_dlc = 7;
 	frame->data[0] = 0x7F;
 	frame->data[1] = 0xFF;
-	frame->data[7] = 0x00;
 }
 
 void set_startaddress(int s, uint8_t module_id, uint32_t addr)
